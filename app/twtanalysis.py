@@ -15,7 +15,7 @@ def plot_chart(rep_df, dem_df, rep_cand, dem_cand, title, chart_b_color):
     
     title = title + '| ' + rep_cand + ': ' + str(round(rep_df["scores"].mean(), 4)) + ' & ' + dem_cand + ': ' + str(round(dem_df["scores"].mean(), 4))
     
-    p = figure(x_axis_type="datetime", title=title, plot_height=200, plot_width=350)
+    p = figure(x_axis_type="datetime", title=title, plot_height=200, plot_width=350, output_backend="webgl")
     p.xgrid.grid_line_color=None
     p.ygrid.grid_line_alpha=0.5
     p.xaxis.axis_label = 'Date'

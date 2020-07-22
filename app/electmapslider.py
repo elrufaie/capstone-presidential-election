@@ -44,30 +44,32 @@ def make_plot(geo_src):
     # instantiate LineraColorMapper and manually set low/high end for colorbar
     color_mapper = LinearColorMapper(palette = palette, low = 1,
                                  high = 0)
-    #TapTool
-    tap = TapTool()
-    states_usa = gpd.read_file("bokeh/cb_2018_us_state_20m.shp")
-    states_usa = states_usa.loc[~states_usa["NAME"].isin(["Alaska", "Hawaii"])]
-    geosource_states = GeoJSONDataSource(geojson = states_usa.to_json())
-    def function_geosource(attr, old, new):
-        try:
-            selected_index = geosource_states.selected.indices[0]
-            state_name = states_usa.iloc[selected_index]['NAME']
-            print(state_name)
-        except IndexError:
-            pass
-    geosource_states.selected.on_change('indices', function_geosource)
+    # #TapTool
+    # tap = TapTool()
+    # states_usa = gpd.read_file("bokeh/cb_2018_us_state_20m.shp")
+    # states_usa = states_usa.loc[~states_usa["NAME"].isin(["Alaska", "Hawaii"])]
+    # geosource_states = GeoJSONDataSource(geojson = states_usa.to_json())
+    # def function_geosource(attr, old, new):
+    #     try:
+    #         selected_index = geosource_states.selected.indices[0]
+    #         state_name = states_usa.iloc[selected_index]['NAME']
+    #         print(state_name)
+    #     except IndexError:
+    #         pass
+    # geosource_states.selected.on_change('indices', function_geosource)
 
     # create figure object
     plot = figure(title = "Republican or Democrat Win by County in Presidential Election",
            plot_height = 600, plot_width = 950,
            toolbar_location = "below",
-           tools = "pan, wheel_zoom, reset, tap")
+           tools = "pan, wheel_zoom, reset",
+           output_backend="webgl")
+           # tools = "pan, wheel_zoom, reset, tap")
 
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
-    plot.patches("xs","ys", source = geosource_states, fill_alpha=0.0,
-                line_color="#884444", line_width=2, line_alpha=0.3)
+    # plot.patches("xs","ys", source = geosource_states, fill_alpha=0.0,
+    #             line_color="#884444", line_width=2, line_alpha=0.3)
     # add patch renderer to figure
     counties = plot.patches("xs","ys", source = geo_src,
                        fill_color = {'field' :'WINNING_PARTY_BINARY', 'transform' : color_mapper},
@@ -92,8 +94,9 @@ def update(attr, old, new):
         curdoc().add_root(layout)
 
 def init_data():
-    # set pandas to display all columns in dataframe
-    pd.set_option("display.max_columns", None)
+    start = time.time()
+
+    print('init_data()')
 
     # read in combined dataset
     combined_df = pd.read_csv("data/elections/Input_Output_Jul07.csv", encoding = "ISO-8859-1")
@@ -123,14 +126,14 @@ def init_data():
     # drop Alaska and Hawaii
     merged_counties = merged_counties.loc[~merged_counties["STATE"].isin(["Alaska", "Hawaii"])]
 
-    return merged_counties
-
-def get_electmap_with_controls():
-
-    start = time.time()
-    merged_cnt_data = init_data()
     end = time.time()
     print("init_data time={}".format(str(end-start)))
+
+    return merged_counties
+
+def init_electmap_with_controls():
+
+    merged_cnt_data = init_data()
 
     year_select = Slider(start = 2000, end = 2020,
                          step = 4, value = 2000,
