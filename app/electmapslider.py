@@ -45,31 +45,30 @@ def make_plot(geo_src):
     color_mapper = LinearColorMapper(palette = palette, low = 1,
                                  high = 0)
     # #TapTool
-    # tap = TapTool()
-    # states_usa = gpd.read_file("bokeh/cb_2018_us_state_20m.shp")
-    # states_usa = states_usa.loc[~states_usa["NAME"].isin(["Alaska", "Hawaii"])]
-    # geosource_states = GeoJSONDataSource(geojson = states_usa.to_json())
-    # def function_geosource(attr, old, new):
-    #     try:
-    #         selected_index = geosource_states.selected.indices[0]
-    #         state_name = states_usa.iloc[selected_index]['NAME']
-    #         print(state_name)
-    #     except IndexError:
-    #         pass
-    # geosource_states.selected.on_change('indices', function_geosource)
+    tap = TapTool()
+    states_usa = gpd.read_file("bokeh/cb_2018_us_state_20m.shp")
+    states_usa = states_usa.loc[~states_usa["NAME"].isin(["Alaska", "Hawaii"])]
+    geosource_states = GeoJSONDataSource(geojson = states_usa.to_json())
+    def function_geosource(attr, old, new):
+        try:
+            selected_index = geosource_states.selected.indices[0]
+            state_name = states_usa.iloc[selected_index]['NAME']
+            print(state_name)
+        except IndexError:
+            pass
+    geosource_states.selected.on_change('indices', function_geosource)
 
     # create figure object
     plot = figure(title = "Republican or Democrat Win by County in Presidential Election",
            plot_height = 600, plot_width = 950,
            toolbar_location = "below",
-           tools = "pan, wheel_zoom, reset",
-           output_backend="webgl")
-           # tools = "pan, wheel_zoom, reset, tap")
+           output_backend="webgl",
+           tools = "pan, wheel_zoom, reset, tap")
 
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
-    # plot.patches("xs","ys", source = geosource_states, fill_alpha=0.0,
-    #             line_color="#884444", line_width=2, line_alpha=0.3)
+    plot.patches("xs","ys", source = geosource_states, fill_alpha=0.0,
+                line_color="#884444", line_width=2, line_alpha=0.3)
     # add patch renderer to figure
     counties = plot.patches("xs","ys", source = geo_src,
                        fill_color = {'field' :'WINNING_PARTY_BINARY', 'transform' : color_mapper},
