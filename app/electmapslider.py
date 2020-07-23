@@ -132,6 +132,7 @@ def init_data():
     return merged_counties
 
 def init_electmap_with_controls():
+    print('init_electmap_with_controls()')
 
     merged_cnt_data = init_data()
 

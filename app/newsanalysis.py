@@ -15,7 +15,7 @@ def plot_chart(rep_df, dem_df, rep_cand, dem_cand, title):
     
     title = title + ' -> ' + rep_cand + ': ' + str(rep_mean) + ' & ' + dem_cand + ': ' + str(dem_mean) 
 
-    p = figure(x_axis_type="datetime", title=title, plot_height=200, plot_width=350)
+    p = figure(x_axis_type="datetime", title=title, plot_height=200, plot_width=350, output_backend="webgl")
     p.xgrid.grid_line_color=None
     p.ygrid.grid_line_alpha=0.5
     p.xaxis.axis_label = 'Date'
@@ -26,9 +26,6 @@ def plot_chart(rep_df, dem_df, rep_cand, dem_cand, title):
 
     p.line(dem_df.date, dem_df.score, line_color="blue", line_width=1, line_alpha=0.6)
     p.circle(dem_df.date, dem_df.score, fill_color="blue", size=3, color="blue")
-   
-    #p.legend.location = "bottom_left"
-    #p.legend.label_text_font_size = '8pt'
 
     p.toolbar.logo = None
     p.toolbar_location = None
