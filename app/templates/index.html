@@ -114,109 +114,33 @@
                {{ map_div|safe }}
                {{ map_script|safe }}
 
+              <button id='test_button' class='btn btn-primary'>State Details</button>
+
+
+
+
              </div>
-             <div class="tab-pane fade" id="v-pills-summary" role="tabpanel" aria-labelledby="v-pills-summary-tab">
-
-              <p class="lead">Sentiments are scaled from 1 (neg) to 5 (pos) and each label shows mean sentiment by each candidate</p>
-
-              {{ twtdiv_ey|safe }}
-              {{ twtscript_ey|safe }}
-
-            </div>
-            <div class="tab-pane fade" id="v-pills-economy" role="tabpanel" aria-labelledby="v-pills-economy-tab">
-
-              <h3>Candidate - Economy</h3>
-              <br/>
-              <div >
-                <div >
-                  <center>
-                    <p>Twitter & News Media Sentiment by Candidate and Economy</p>
-                    <div>
-                      {{ twtdiv_ec|safe }}
-
-                      {{ twtscript_ec|safe }}
-                    </div>
-                  </center>
-                </div>
-                <br/>
-                <hr/>
-                <h3>States Vulnerable To Economy</h3>
-                <br/>
-                <div >
-                  <img src="{{ url_for('static', filename='images/OH.png') }}" 
-                  width="70" height="70" style=" margin: 10px;"/> 
-                  <img src="{{ url_for('static', filename='images/PA.png') }}" 
-                  width="70" height="70" style=" margin: 10px;"/> 
-                  <img src="{{ url_for('static', filename='images/MI.png') }}" 
-                  width="70" height="70" style=" margin: 10px;"/> 
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-party" role="tabpanel" aria-labelledby="v-pills-party-tab">
-              <h3>Candidate - Party</h3>
-              <br/>
-              <center>
-                <p>Twitter & News Media Sentiment by Candidate and Party</p>    
-
-                <div>
-                  {{ twtdiv_p|safe }}
-
-                  {{ twtscript_p|safe }}
-                </div>
-              </center>
-            </div>
-            <div class="tab-pane fade" id="v-pills-environment" role="tabpanel" aria-labelledby="v-pills-environment-tab">
-              <h3>Candidate - Environment</h3>
-              <br/>
-              <p>Twitter & News Media Sentiment by Candidate and Environment</p>
-              <div>
-                {{ twtdiv_en|safe }}
-
-                {{ twtscript_en|safe }}
-              </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-health" role="tabpanel" aria-labelledby="v-pills-health-tab">
-              <h3>Candidate - Health</h3>
-              <br/>
-              <p>Twitter & News Media Sentiment by Candidate and Health</p>
-              <div>
-                {{ twtdiv_h|safe }}
-
-                {{ twtscript_h|safe }}
-              </div>   
-            </div>
-            <div class="tab-pane fade" id="v-pills-jobs" role="tabpanel" aria-labelledby="v-pills-jobs-tab">
-
-              <h3>Candidate - Job</h3>
-              <br/>
-              <p>Twitter & News Media Sentiment by Candidate and Job</p>
-              <div>
-                {{ twtdiv_j|safe }}
-
-                {{ twtscript_j|safe }}
-              </div>   
-            </div>
           </div>
         </div>
           <div class="col-12">
             <!-- SOCIAL -->
             <div class="dashboard-section no-margin">
               <div class="section-heading clearfix">
-                <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: {{ state_text }} </h2>
+                <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
               </div>
               <div class="panel-content">
                 <div class="row">
                   <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i> ECONOMY <span>TOP ISSUE</span></p>
+                    <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i><span id ='top_issue'></span><span>TOP ISSUE</span></p>
                   </div>
                   <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-upload"></i> +6.2% <span>MODEL BOOST</span></p>
+                    <p class="metric-inline"><i class="lnr lnr-upload"></i><span id ='boost'></span><span>MODEL BOOST</span></p>
                   </div>
                   <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-users"></i> 0.9% <span>MARGIN OF VICTORY</span></p>
+                    <p class="metric-inline"><i class="lnr lnr-users"></i><span id ='win_margin'></span><span>MARGIN OF VICTORY</span></p>
                   </div>
                   <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-users"></i> Republican <span>WON PREVIOUS ELECTION</span></p>
+                    <p class="metric-inline"><i class="lnr lnr-users"></i><span id='party'></span><span>WON PREVIOUS ELECTION</span></p>
                   </div>
                 </div>
               </div>
@@ -233,8 +157,8 @@
   <script src="../static/js/bootstrap.bundle.min.js"></script>
 
   <!-- Javascript -->
-  <!-- <script src="../static/assets/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../static/assets/vendor/jquery/jquery.min.js"></script>
+  <!-- <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="../static/assets/vendor/metisMenu/metisMenu.js"></script>
   <script src="../static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <script src="../static/assets/vendor/jquery-sparkline/js/jquery.sparkline.min.js"></script>
@@ -245,196 +169,22 @@
   <script src="../static/assets/vendor/chartist-plugin-legend-latest/chartist-plugin-legend.js"></script>
   <script src="../static/assets/vendor/toastr/toastr.js"></script>
   <script src="../static/assets/scripts/common.js"></script> -->
-<!--   <script>
-  $(function() {
-
-    // sparkline charts
-    var sparklineNumberChart = function() {
-
-      var params = {
-        width: '140px',
-        height: '30px',
-        lineWidth: '2',
-        lineColor: '#20B2AA',
-        fillColor: false,
-        spotRadius: '2',
-        spotColor: false,
-        minSpotColor: false,
-        maxSpotColor: false,
-        disableInteraction: false
-      };
-
-      $('#number-chart1').sparkline('html', params);
-      $('#number-chart2').sparkline('html', params);
-      $('#number-chart3').sparkline('html', params);
-      $('#number-chart4').sparkline('html', params);
-    };
-
-    sparklineNumberChart();
-
-
-    // traffic sources
-    var dataPie = {
-      series: [45, 25, 30]
-    };
-
-    var labels = ['Direct', 'Organic', 'Referral'];
-    var sum = function(a, b) {
-      return a + b;
-    };
-
-    new Chartist.Pie('#demo-pie-chart', dataPie, {
-      height: "270px",
-      labelInterpolationFnc: function(value, idx) {
-        var percentage = Math.round(value / dataPie.series.reduce(sum) * 100) + '%';
-        return labels[idx] + ' (' + percentage + ')';
-      }
-    });
-
-
-    // progress bars
-    $('.progress .progress-bar').progressbar({
-      display_text: 'none'
-    });
-
-    // line chart
-    var data = {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      series: [
-        [200, 380, 350, 480, 410, 450, 550],
-      ]
-    };
-
-    var options = {
-      height: "200px",
-      showPoint: true,
-      showArea: true,
-      axisX: {
-        showGrid: false
-      },
-      lineSmooth: false,
-      chartPadding: {
-        top: 0,
-        right: 0,
-        bottom: 30,
-        left: 30
-      },
-      plugins: [
-        Chartist.plugins.tooltip({
-          appendToBody: true
-        }),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: 'Day',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: 50
-            },
-            textAnchor: 'middle'
-          },
-          axisY: {
-            axisTitle: 'Reach',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: -10
-            },
-          }
-        })
-      ]
-    };
-
-    new Chartist.Line('#demo-line-chart', data, options);
-
-
-    // sales performance chart
-    var sparklineSalesPerformance = function() {
-
-      var lastWeekData = [142, 164, 298, 384, 232, 269, 211];
-      var currentWeekData = [352, 267, 373, 222, 533, 111, 60];
-
-      $('#chart-sales-performance').sparkline(lastWeekData, {
-        fillColor: 'rgba(90, 90, 90, 0.1)',
-        lineColor: '#5A5A5A',
-        width: '' + $('#chart-sales-performance').innerWidth() + '',
-        height: '100px',
-        lineWidth: '2',
-        spotColor: false,
-        minSpotColor: false,
-        maxSpotColor: false,
-        chartRangeMin: 0,
-        chartRangeMax: 1000
-      });
-
-      $('#chart-sales-performance').sparkline(currentWeekData, {
-        composite: true,
-        fillColor: 'rgba(60, 137, 218, 0.1)',
-        lineColor: '#3C89DA',
-        lineWidth: '2',
-        spotColor: false,
-        minSpotColor: false,
-        maxSpotColor: false,
-        chartRangeMin: 0,
-        chartRangeMax: 1000
-      });
-    }
-
-    sparklineSalesPerformance();
-
-    var sparkResize;
-    $(window).on('resize', function() {
-      clearTimeout(sparkResize);
-      sparkResize = setTimeout(sparklineSalesPerformance, 200);
-    });
-
-
-    // top products
-    var dataStackedBar = {
-      labels: ['Q1', 'Q2', 'Q3'],
-      series: [
-        [800000, 1200000, 1400000],
-        [200000, 400000, 500000],
-        [100000, 200000, 400000]
-      ]
-    };
-
-    new Chartist.Bar('#chart-top-products', dataStackedBar, {
-      height: "250px",
-      stackBars: true,
-      axisX: {
-        showGrid: false
-      },
-      axisY: {
-        labelInterpolationFnc: function(value) {
-          return (value / 1000) + 'k';
+  <script>
+    $('#test_button').click(function () {
+      $.ajax({
+        type: 'GET',
+        url: '/details',
+        success: function (response) {
+          // alert(response['details_party']);
+          $('#state').text(response['details_state_text']).css("font-weight","Bold");
+          $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
+          $('#boost').text(response['details_boost']).css("font-weight","Bold");
+          $('#win_margin').text(response['details_win_margin']).css("font-weight","Bold");
+          $('#party').text(response['details_party']).css("font-weight","Bold");
         }
-      },
-      plugins: [
-        Chartist.plugins.tooltip({
-          appendToBody: true
-        }),
-        Chartist.plugins.legend({
-          legendNames: ['Phone', 'Laptop', 'PC']
-        })
-      ]
-    }).on('draw', function(data) {
-      if (data.type === 'bar') {
-        data.element.attr({
-          style: 'stroke-width: 30px'
-        });
-      }
+      });
     });
-
-
-    // notification popup
-    toastr.options.closeButton = true;
-    toastr.options.positionClass = 'toast-bottom-right';
-    toastr.options.showDuration = 1000;
-    toastr['info']('Hello, welcome to DiffDash, a unique admin dashboard.');
-
-  });
-  </script> -->
+  </script>
 
 </body>
 </html>

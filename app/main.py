@@ -9,8 +9,8 @@ import twtanalysis as twt
 import electmapslider as mslider
 
 # starting Flask app
-from flask import Flask, render_template
-import time
+from flask import Flask, render_template, jsonify
+import time, random
 
 app = Flask(__name__)
 map_plot = mslider.init_electmap_with_controls()
@@ -57,6 +57,40 @@ def chart():
         twtdiv_h=twtdiv_h, twtscript_h=twtscript_h,
         twtdiv_i=twtdiv_i, twtscript_i=twtscript_i,
         twtdiv_j=twtdiv_j, twtscript_j=twtscript_j)
+
+@app.route('/details')
+def details():
+    print("calling /details")
+
+    sample_details_1 = {
+        'details_state_text': 'Florida',
+        'details_top_issue': 'Immigration',
+        'details_boost': "7%",
+        'details_win_margin': "1.2%",
+        'details_party': 'Republican'
+    }
+
+    sample_details_2 = {
+        'details_state_text': 'Michigan',
+        'details_top_issue': 'Economy',
+        'details_boost': "7%",
+        'details_win_margin': "2.3%",
+        'details_party': 'Republican'
+    }
+
+    sample_details_3 = {
+        'details_state_text': 'Pennsylvania',
+        'details_top_issue': 'Economy',
+        'details_boost': "7%",
+        'details_win_margin': "0.9%",
+        'details_party': 'Democrat'
+    }
+
+    details = {0: sample_details_1, 1: sample_details_2, 2: sample_details_3}
+    random_pick = random.randint(0, 3)
+
+    return jsonify(details[random_pick])
+
 
 
 if __name__ == '__main__':
