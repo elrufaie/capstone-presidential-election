@@ -6,14 +6,14 @@ import sys
 from bokeh.embed import components
 
 import twtanalysis as twt
-import electmapslider as mslider
+import electmapslider_2 as mslider
 
 # starting Flask app
 from flask import Flask, render_template, jsonify
 import time, random
 
 app = Flask(__name__)
-map_plot = mslider.init_electmap_with_controls()
+map_plot = mslider.get_electmap_with_controls()
 
 @app.route('/hello')
 def hello():
@@ -31,7 +31,7 @@ def chart():
     start = time.time()
     twtplot_ey = twt.get_candidate_election_yearmonth_sent_plot()
     twtscript_ey, twtdiv_ey = components(twtplot_ey)
-    
+
     twtplot_p = twt.get_candidate_party_plot()
     twtscript_p, twtdiv_p = components(twtplot_p)
     twtplot_ec = twt.get_candidate_economy_plot()
@@ -48,7 +48,7 @@ def chart():
     end = time.time()
     print("twitter plots time={}".format(str(end-start)))
 
-    return render_template("index.html", 
+    return render_template("index.html",
         map_div=div, map_script=script,
         twtdiv_ey=twtdiv_ey, twtscript_ey=twtscript_ey,
         twtdiv_p=twtdiv_p, twtscript_p=twtscript_p,
@@ -102,5 +102,5 @@ if __name__ == '__main__':
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
     print("loading app...")
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="127.0.0.1", port=8080, debug=True)
     # app.run(host='127.0.0.1', port=8080, debug=True)
