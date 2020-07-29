@@ -168,7 +168,24 @@
   <script src="../static/assets/vendor/toastr/toastr.js"></script>
   <script src="../static/assets/scripts/common.js"></script> -->
   <script>
-    $('#test_button').click(function () {
+
+    var currentYearSelection = '2004';
+    var currentFipsSelection = '4';
+
+    //$('#test_button').click(function () {
+      function updateDetails(stateFips, year){
+
+        if (year != null){
+          currentYearSelection = year;
+        }
+
+        if (stateFips != null){
+          currentFipsSelection = stateFips;
+        }
+
+        console.log('state fip', currentFipsSelection)
+        console.log('year', currentYearSelection)
+
       $.ajax({
         type: 'GET',
         url: '/details/fake-fips',
@@ -180,7 +197,8 @@
           $('#party').text(response['details_party']).css("font-weight","Bold");
         }
       });
-    });
+    }
+    //});
   </script>
 
 </body>

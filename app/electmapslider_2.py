@@ -216,8 +216,6 @@ def get_electmap_with_controls():
 
     var st_fip = currsource_c.data['STATE_FIPS'][0];
 
-    console.log(st_fip);
-
     for (var i = 0; i <= source_c.data['YEAR'].length; i++){
         if (source_c.data['YEAR'][i] == yr && source_c.data['STATE_FIPS'][i] == st_fip){
             for(var key in source_c.data){
@@ -226,15 +224,13 @@ def get_electmap_with_controls():
         }
     }
 
+    updateDetails(null, yr);
+
     currsource_s.change.emit();
     currsource_c.change.emit();
-
     """)
 
     year_select.js_on_change('value', callbackSelector)
-
-
-
 
     #curr_geo_src_s.js_on_event('value', callbackStateClick)
 
@@ -268,6 +264,8 @@ def get_electmap_with_controls():
             }
         }
     }
+
+    updateDetails(st_fip, null);
 
     source_curr_c.change.emit();
 
