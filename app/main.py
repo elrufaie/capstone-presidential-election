@@ -7,6 +7,7 @@ from bokeh.embed import components
 
 import twtanalysis as twt
 import electmapslider_2 as mslider
+import stateaggregates as aggs
 
 # starting Flask app
 from flask import Flask, render_template, jsonify
@@ -14,10 +15,8 @@ import time, random
 
 app = Flask(__name__)
 map_plot = mslider.get_electmap_with_controls()
+aggs.init()   
 
-@app.route('/hello')
-def hello():
-    return 'hello world'
 
 @app.route("/")
 def chart():
@@ -58,38 +57,39 @@ def chart():
         twtdiv_i=twtdiv_i, twtscript_i=twtscript_i,
         twtdiv_j=twtdiv_j, twtscript_j=twtscript_j)
 
-@app.route('/details')
-def details():
-    print("calling /details")
+@app.route('/details/<state_fips>')
+def details(state_fips):
+    print("calling /details; state_fips={}".format(state_fips))
+    state_details = aggs.get_details_for_state('123')
 
-    sample_details_1 = {
-        'details_state_text': 'Florida',
-        'details_top_issue': 'Immigration',
+    details = {
+        'details_state_text': state_details.name,
+        'details_top_issue': state_details.top_topic,
         'details_boost': "7%",
-        'details_win_margin': "1.2%",
-        'details_party': 'Republican'
+        'details_win_margin': state_details.win_margin,
+        'details_party': state_details.prev_winner
     }
 
-    sample_details_2 = {
-        'details_state_text': 'Michigan',
-        'details_top_issue': 'Economy',
-        'details_boost': "7%",
-        'details_win_margin': "2.3%",
-        'details_party': 'Republican'
-    }
+    # sample_details_2 = {
+    #     'details_state_text': 'Michigan',
+    #     'details_top_issue': 'Economy',
+    #     'details_boost': "7%",
+    #     'details_win_margin': "2.3%",
+    #     'details_party': 'Republican'
+    # }
 
-    sample_details_3 = {
-        'details_state_text': 'Pennsylvania',
-        'details_top_issue': 'Economy',
-        'details_boost': "7%",
-        'details_win_margin': "0.9%",
-        'details_party': 'Democrat'
-    }
+    # sample_details_3 = {
+    #     'details_state_text': 'Pennsylvania',
+    #     'details_top_issue': 'Economy',
+    #     'details_boost': "7%",
+    #     'details_win_margin': "0.9%",
+    #     'details_party': 'Democrat'
+    # }
 
-    details = {0: sample_details_1, 1: sample_details_2, 2: sample_details_3}
-    random_pick = random.randint(0, 3)
+    # details = {0: sample_details_1, 1: sample_details_2, 2: sample_details_3}
+    # random_pick = random.randint(0, 2)
 
-    return jsonify(details[random_pick])
+    return jsonify(details)
 
 
 
