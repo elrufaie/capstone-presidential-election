@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-0.12.14.min.css" type="text/css" />
   <link rel="stylesheet" href="https://cdn.bokeh.org/bokeh/release/bokeh-tables-0.12.14.min.css" type="text/css">
   <link rel="icon" href="https://raw.githubusercontent.com/ehuang13/w210-presidential-election/master/harith/sample-bokeh-app/static/favicon.ico" >
-
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -37,11 +35,6 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 
   <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
-  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -158,6 +151,11 @@
 
   <!-- Javascript -->
   <script src="../static/assets/vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"></script>
   <!-- <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="../static/assets/vendor/metisMenu/metisMenu.js"></script>
   <script src="../static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -173,9 +171,8 @@
     $('#test_button').click(function () {
       $.ajax({
         type: 'GET',
-        url: '/details',
+        url: '/details/fake-fips',
         success: function (response) {
-          // alert(response['details_party']);
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#boost').text(response['details_boost']).css("font-weight","Bold");
