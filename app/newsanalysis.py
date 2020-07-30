@@ -32,12 +32,9 @@ def plot_chart(rep_df, dem_df, rep_cand, dem_cand, title):
     
     return p
 
-
 def get_candidate_plot():
     df_trump_c = pd.read_csv('data/newssentdata/candidates/cnn/trump/headlines.csv')
     df_biden_c = pd.read_csv('data/newssentdata/cnn/biden/headlines.csv')
-
-    #print(df_trump.head())
 
     p_2020_cand_c = plot_chart(df_trump_c, df_biden_c, 'Trump', 'Biden', "Candidate - CNN ")
 

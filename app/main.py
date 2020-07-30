@@ -10,7 +10,7 @@ import electmapslider_2 as mslider
 import stateaggregates as aggs
 
 # starting Flask app
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import time, random
 
 app = Flask(__name__)
@@ -59,8 +59,9 @@ def chart():
 
 @app.route('/details/<state_fips>')
 def details(state_fips):
-    print("calling /details; state_fips={}".format(state_fips))
-    state_details = aggs.get_details_for_state('123')
+    year = request.args.get('year')
+    print("calling /details; state_fips={}; year={}".format(state_fips, year))
+    state_details = aggs.get_details_for_state(int(state_fips), int(year))
 
     details = {
         'details_state_text': state_details.name,
@@ -70,28 +71,7 @@ def details(state_fips):
         'details_party': state_details.prev_winner
     }
 
-    # sample_details_2 = {
-    #     'details_state_text': 'Michigan',
-    #     'details_top_issue': 'Economy',
-    #     'details_boost': "7%",
-    #     'details_win_margin': "2.3%",
-    #     'details_party': 'Republican'
-    # }
-
-    # sample_details_3 = {
-    #     'details_state_text': 'Pennsylvania',
-    #     'details_top_issue': 'Economy',
-    #     'details_boost': "7%",
-    #     'details_win_margin': "0.9%",
-    #     'details_party': 'Democrat'
-    # }
-
-    # details = {0: sample_details_1, 1: sample_details_2, 2: sample_details_3}
-    # random_pick = random.randint(0, 2)
-
     return jsonify(details)
-
-
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

@@ -107,10 +107,6 @@
                {{ map_div|safe }}
                {{ map_script|safe }}
 
-              <button id='test_button' class='btn btn-primary'>State Details</button>
-
-
-
 
              </div>
           </div>
@@ -186,9 +182,11 @@
         console.log('state fip', currentFipsSelection)
         console.log('year', currentYearSelection)
 
+        var urlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
+
       $.ajax({
         type: 'GET',
-        url: '/details/fake-fips',
+        url: urlPath,
         success: function (response) {
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
