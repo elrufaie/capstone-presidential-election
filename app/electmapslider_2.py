@@ -44,7 +44,7 @@ def make_dataset_cnt(st_data, yr, state_fips, shouldGetAll):
 
 def make_plot_st(geo_src):
     # define color palettes
-    mycolors = ['#084594','#4292c6', '#9ecae1', '#deebf7','#ffcccc','#ff9999','#ff4d4d','#ff0000']
+    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
@@ -68,6 +68,9 @@ def make_plot_st(geo_src):
 
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
+    plot.toolbar.logo = None
+    plot.toolbar_location = None
+    plot.axis.visible = False
 
     # add patch renderer to figure
     states = plot.patches("xs","ys", source = geo_src,
@@ -87,7 +90,7 @@ def make_plot_st(geo_src):
 
 def make_plot_cnt(geo_src):
      # define color palettes
-    mycolors = ['#084594','#4292c6', '#9ecae1', '#deebf7','#ffcccc','#ff9999','#ff4d4d','#ff0000']
+    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
@@ -114,6 +117,9 @@ def make_plot_cnt(geo_src):
 
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
+    plot.toolbar.logo = None
+    plot.toolbar_location = None
+    plot.axis.visible = False
 
     #plot.patches('xs','ys', source = geosource_states,fill_alpha=0.0,
     #          line_color="#884444", line_width=2, line_alpha=0.3)
