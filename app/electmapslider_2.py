@@ -44,7 +44,7 @@ def make_dataset_cnt(st_data, yr, state_fips, shouldGetAll):
 
 def make_plot_st(geo_src):
     # define color palettes
-    mycolors = ['#cc0000','#ff3333', '#ff8080', '#ffb3b3','#ccd9ff','#99b3ff','#668cff','#0039e6']
+    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
@@ -87,7 +87,7 @@ def make_plot_st(geo_src):
 
 def make_plot_cnt(geo_src):
      # define color palettes
-    mycolors = ['#cc0000','#ff3333', '#ff8080', '#ffb3b3','#ccd9ff','#99b3ff','#668cff','#0039e6']
+    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
