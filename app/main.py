@@ -66,7 +66,7 @@ def details(state_fips):
     details = {
         'details_state_text': state_details.name,
         'details_top_issue': state_details.top_topic,
-        'details_boost': "7%",
+        'details_boost': "TBD",
         'details_win_margin': state_details.win_margin,
         'details_party': state_details.prev_winner
     }
