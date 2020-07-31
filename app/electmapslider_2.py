@@ -44,7 +44,7 @@ def make_dataset_cnt(st_data, yr, state_fips, shouldGetAll):
 
 def make_plot_st(geo_src):
     # define color palettes
-    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
+    mycolors = ['#0015bc','#1a34ff','#6678ff','#b3bbff','#f9b9bc','#f58a8f','#f15b62','#e9141d']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
@@ -63,14 +63,17 @@ def make_plot_st(geo_src):
                      orientation = "horizontal")
 
     # create figure object
-    plot = figure(title = "Margin of Victory in Presidential Elections",
+    plot = figure(title = "STATE RESULTS BY MARGIN OF VICTORY",
            plot_height = 600, plot_width = 950)
-
+    plot.title.text_font_size = '20pt'
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
     plot.toolbar.logo = None
     plot.toolbar_location = None
     plot.axis.visible = False
+    plot.background_fill_color = None
+    plot.border_fill_color = None
+    plot.outline_line_color = None
 
     # add patch renderer to figure
     states = plot.patches("xs","ys", source = geo_src,
@@ -90,7 +93,7 @@ def make_plot_st(geo_src):
 
 def make_plot_cnt(geo_src):
      # define color palettes
-    mycolors = ['#0039e6','#668cff','#99b3ff','#ccd9ff','#ffb3b3','#ff8080','#ff3333','#cc0000']
+    mycolors = ['#0015bc','#1a34ff','#6678ff','#b3bbff','#f9b9bc','#f58a8f','#f15b62','#e9141d']
 
     # use reverse order so higher values are darker
     #palette = palette[::-1]
@@ -111,15 +114,19 @@ def make_plot_cnt(geo_src):
 
 
     # create figure object
-    plot = figure(title = 'Test Bokeh Map',
+    plot = figure(title = 'STATE MAP',
                plot_height = 525 ,
                plot_width = 800)
+    plot.title.text_font_size = '20pt'
 
     plot.xgrid.grid_line_color = None
     plot.ygrid.grid_line_color = None
     plot.toolbar.logo = None
     plot.toolbar_location = None
     plot.axis.visible = False
+    plot.background_fill_color = None
+    plot.border_fill_color = None
+    plot.outline_line_color = None
 
     #plot.patches('xs','ys', source = geosource_states,fill_alpha=0.0,
     #          line_color="#884444", line_width=2, line_alpha=0.3)
