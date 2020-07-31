@@ -112,7 +112,7 @@
           </div>
         </div>
           <div class="col-12">
-            <!-- SOCIAL -->
+            <!-- DETAILS -->
             <div class="dashboard-section no-margin">
               <div class="section-heading clearfix">
                 <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
@@ -134,7 +134,38 @@
                 </div>
               </div>
             </div>
-        <!-- END SOCIAL -->
+            <div class="card" style="width: 18rem;">
+              <div class="card-header">
+                ISSUE BY CANDIDATE
+              </div>
+              <table class="card-table table">
+                <thead>
+                  <tr>
+                    <th scope="col">Issue</th>
+                    <th scope="col">Leading Candidate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Climate</td>
+                    <td><span id ='issues_climate'></span></td>
+                  </tr>
+                  <tr>
+                    <td>Economy</td>
+                    <td><span id ='issues_economy'></span></td>
+                  </tr>
+                  <tr>
+                    <td>Heatlh Care</td>
+                    <td><span id ='issues_healthcare'></span></td>
+                  </tr>
+                  <tr>
+                    <td>Immigation</td>
+                    <td><span id ='issues_immigration'></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        <!-- END DETAILS -->
           </div>
         </div>
       </div>
@@ -182,17 +213,30 @@
         console.log('state fip', currentFipsSelection)
         console.log('year', currentYearSelection)
 
-        var urlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
+        var detailsUrlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
+
+        var issuesUrlPath = '/issues/' + currentFipsSelection + '?year=' + currentYearSelection
 
       $.ajax({
         type: 'GET',
-        url: urlPath,
+        url: detailsUrlPath,
         success: function (response) {
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#boost').text(response['details_boost']).css("font-weight","Bold");
           $('#win_margin').text(response['details_win_margin']).css("font-weight","Bold");
           $('#party').text(response['details_party']).css("font-weight","Bold");
+        }
+      });
+
+      $.ajax({
+        type: 'GET',
+        url: issuesUrlPath,
+        success: function (response) {
+          $('#issues_immigration').text(response['Immigration']).css("font-weight","Bold");
+          $('#issues_healthcare').text(response['Health Care']).css("font-weight","Bold");
+          $('#issues_economy').text(response['Economy']).css("font-weight","Bold");
+          $('#issues_climate').text(response['Climate']).css("font-weight","Bold");
         }
       });
     }
