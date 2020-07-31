@@ -142,7 +142,7 @@
               </div>
             </div>
             <div class="card" style="width: 18rem;">
-              <div class="card-header">
+              <div class="card-header" style="font-weight: Bold">
                 ISSUE BY CANDIDATE
               </div>
               <table class="card-table table">
@@ -154,20 +154,23 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Climate Change</td>
-                    <td><span id ='issues_climate'></span></td>
+                    <th>Climate Change</th>
+                    <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
                   </tr>
                   <tr>
                     <td>Economy</td>
-                    <td><span id ='issues_economy'></span></td>
-                  </tr>
-                  <tr>
-                    <td>Health Care</td>
-                    <td><span id ='issues_healthcare'></span></td>
+                    <td class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></td>
                   </tr>
                   <tr>
                     <td>Immigration</td>
                     <td><span id ='issues_immigration'></span></td>
+
+                    <td>Heatlh Care</td>
+                    <td><img id ='issues_healthcare' class="rounded-circle" /></td>
+                  </tr>
+                  <tr>
+                    <td>Immigration</td>
+                    <td><img id ='issues_immigration' class="rounded-circle" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -206,6 +209,14 @@
     var currentYearSelection = '2004';
     var currentFipsSelection = '4';
 
+    //not the smartest thing.. but works!
+    var pic_dict = {
+          'BO': '{{url_for('static', filename="pics/BO.jpeg")}}',
+          "HC": '{{url_for('static', filename="pics/HC.jpeg")}}',
+          "DT": '{{url_for('static', filename="pics/DT.jpeg")}}',
+          "MR": '{{url_for('static', filename="pics/MR.jpeg")}}',
+        };
+
     //$('#test_button').click(function () {
       function updateDetails(stateFips, year){
 
@@ -240,10 +251,15 @@
         type: 'GET',
         url: issuesUrlPath,
         success: function (response) {
-          $('#issues_immigration').text(response['Immigration']).css("font-weight","Bold");
-          $('#issues_healthcare').text(response['Health Care']).css("font-weight","Bold");
-          $('#issues_economy').text(response['Economy']).css("font-weight","Bold");
-          $('#issues_climate').text(response['Climate']).css("font-weight","Bold");
+          var immigration_lead = response['Immigration']
+          var healthcare_lead = response['Health Care']
+          var economy_lead = response['Economy']
+          var climate_lead = response['Climate']
+
+          $('#issues_immigration').prop("src", pic_dict[immigration_lead]);
+          $('#issues_healthcare').prop("src", pic_dict[healthcare_lead]);
+          $('#issues_economy').prop("src", pic_dict[economy_lead]);
+          $('#issues_climate').prop("src", pic_dict[climate_lead]);
         }
       });
     }
