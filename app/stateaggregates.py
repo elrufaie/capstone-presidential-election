@@ -1,7 +1,7 @@
 import pandas as pd
 from state_details import StateDetails
 
-state_details_df = pd.read_csv('data/elections/state_aggregated_0727.csv')
+state_details_df = pd.read_csv('data/elections/state_aggregated_0801.csv')
 
 def init():
 	print('loading state aggregates data')
@@ -19,6 +19,8 @@ def get_details_for_state(fips, year):
 	prev_winner = 'Democrat' if winner_str == 0 else 'Republican'
 	margin = row['ABS_MARGIN_VICTORY'].values[0] * 100
 	margin_str = "{:.2f}".format(margin)  + '%'
+	votes = row['ELECTORAL_VOTES'].values[0]
+	print("votes=" + str(votes))
 
-	return StateDetails(state, top, prev_winner, margin_str)
+	return StateDetails(state, top, prev_winner, margin_str, str(votes))
 
