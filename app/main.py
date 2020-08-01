@@ -8,6 +8,7 @@ from bokeh.embed import components
 import twtanalysis as twt
 import electmapslider_2 as mslider
 import stateaggregates as aggs
+import issues as issues
 
 # starting Flask app
 from flask import Flask, render_template, jsonify, request
@@ -66,12 +67,19 @@ def details(state_fips):
     details = {
         'details_state_text': state_details.name,
         'details_top_issue': state_details.top_topic,
-        'details_boost': "7%",
+        'details_boost': "TBD",
         'details_win_margin': state_details.win_margin,
         'details_party': state_details.prev_winner
     }
 
     return jsonify(details)
+
+@app.route('/issues/<state_fips>')
+def issues_by_candidate(state_fips):
+    year = request.args.get('year')
+    issues_by_candidate = issues.get_issues_by_candidates(int(state_fips), int(year))
+
+    return jsonify(issues_by_candidate)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

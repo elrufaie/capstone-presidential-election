@@ -69,16 +69,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-        </ul>
-      </div>
+      
     </div>
   </nav>
 
@@ -87,19 +78,15 @@
       <center><h1>US Presidential Elections Forecast</h1></center>
 
         <p></p>
+		
+		<div class = "progress" style="height:40px; border-radius: 0; background-color: #0015bc;">
+			<div class = "progress-bar" role = "progressbar" aria-valuenow = "60"
+				aria-valuemin = "0" aria-valuemax = "538" style = "height:40px;width:60%;background-color: #e9141d">
+				<span class = "sr-only">60% Complete</span>
+			</div>
+		</div>
 
         <div class="row">
-          <!-- <div class="col-3">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-              <a class="nav-link" id="v-pills-summary-tab" data-toggle="pill" href="#v-pills-summary" role="tab" aria-controls="v-pills-summary" aria-selected="true">Sentiment Summary</a>
-              <a class="nav-link" id="v-pills-economy-tab" data-toggle="pill" href="#v-pills-economy" role="tab" aria-controls="v-pills-economy" aria-selected="false">Sentiment: Economy</a>
-              <a class="nav-link" id="v-pills-party-tab" data-toggle="pill" href="#v-pills-party" role="tab" aria-controls="v-pills-party" aria-selected="false">Sentiment: Party</a>
-              <a class="nav-link" id="v-pills-environment-tab" data-toggle="pill" href="#v-pills-environment" role="tab" aria-controls="v-pills-environment" aria-selected="false">Sentiments: Environment</a>
-              <a class="nav-link" id="v-pills-health-tab" data-toggle="pill" href="#v-pills-health" role="tab" aria-controls="v-pills-health" aria-selected="false">Sentiment: Health</a>
-              <a class="nav-link" id="v-pills-jobs-tab" data-toggle="pill" href="#v-pills-jobs" role="tab" aria-controls="v-pills-jobs" aria-selected="false">Sentiment: Jobs</a>
-            </div>
-          </div> -->
           <div class="col-6">
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -112,7 +99,7 @@
           </div>
         </div>
           <div class="col-12">
-            <!-- SOCIAL -->
+            <!-- DETAILS -->
             <div class="dashboard-section no-margin">
               <div class="section-heading clearfix">
                 <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
@@ -134,7 +121,40 @@
                 </div>
               </div>
             </div>
-        <!-- END SOCIAL -->
+            <!-- <div class="card text-center"> -->
+              <div class="card" style="width: 22rem; text-center">
+                <div class="card-header" style="font-weight: Bold">
+                  <center>ISSUE BY CANDIDATE</center>
+                </div>
+                <table class="card-table table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Issue</th>
+                      <th scope="col">Leading Candidate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Climate Change</th>
+                      <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Economy</th>
+                      <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Heatlh Care</th>
+                      <th><img id ='issues_healthcare' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Immigration</th>
+                      <th><img id ='issues_immigration' class="rounded-circle" /></th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+           <!--  </div> -->
+        <!-- END DETAILS -->
           </div>
         </div>
       </div>
@@ -152,21 +172,18 @@
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"></script>
-  <!-- <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../static/assets/vendor/metisMenu/metisMenu.js"></script>
-  <script src="../static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-  <script src="../static/assets/vendor/jquery-sparkline/js/jquery.sparkline.min.js"></script>
-  <script src="../static/assets/vendor/bootstrap-progressbar/js/bootstrap-progressbar.min.js"></script>
-  <script src="../static/assets/vendor/chartist/js/chartist.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-axistitle/chartist-plugin-axistitle.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-legend-latest/chartist-plugin-legend.js"></script>
-  <script src="../static/assets/vendor/toastr/toastr.js"></script>
-  <script src="../static/assets/scripts/common.js"></script> -->
   <script>
 
     var currentYearSelection = '2004';
     var currentFipsSelection = '4';
+
+    //not the smartest thing.. but works!
+    var pic_dict = {
+          'BO': '{{url_for('static', filename="pics/BO.jpeg")}}',
+          "HC": '{{url_for('static', filename="pics/HC.jpeg")}}',
+          "DT": '{{url_for('static', filename="pics/DT.jpeg")}}',
+          "MR": '{{url_for('static', filename="pics/MR.jpeg")}}',
+        };
 
     //$('#test_button').click(function () {
       function updateDetails(stateFips, year){
@@ -182,17 +199,35 @@
         console.log('state fip', currentFipsSelection)
         console.log('year', currentYearSelection)
 
-        var urlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
+        var detailsUrlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
+
+        var issuesUrlPath = '/issues/' + currentFipsSelection + '?year=' + currentYearSelection
 
       $.ajax({
         type: 'GET',
-        url: urlPath,
+        url: detailsUrlPath,
         success: function (response) {
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#boost').text(response['details_boost']).css("font-weight","Bold");
           $('#win_margin').text(response['details_win_margin']).css("font-weight","Bold");
           $('#party').text(response['details_party']).css("font-weight","Bold");
+        }
+      });
+
+      $.ajax({
+        type: 'GET',
+        url: issuesUrlPath,
+        success: function (response) {
+          var immigration_lead = response['Immigration']
+          var healthcare_lead = response['Health Care']
+          var economy_lead = response['Economy']
+          var climate_lead = response['Climate']
+
+          $('#issues_immigration').prop("src", pic_dict[immigration_lead]);
+          $('#issues_healthcare').prop("src", pic_dict[healthcare_lead]);
+          $('#issues_economy').prop("src", pic_dict[economy_lead]);
+          $('#issues_climate').prop("src", pic_dict[climate_lead]);
         }
       });
     }
