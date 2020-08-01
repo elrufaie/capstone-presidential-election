@@ -20,7 +20,6 @@ def get_details_for_state(fips, year):
 	margin = row['ABS_MARGIN_VICTORY'].values[0] * 100
 	margin_str = "{:.2f}".format(margin)  + '%'
 	votes = row['ELECTORAL_VOTES'].values[0]
-	print("votes=" + str(votes))
 
 	return StateDetails(state, top, prev_winner, margin_str, str(votes))
 

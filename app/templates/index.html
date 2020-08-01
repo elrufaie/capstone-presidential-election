@@ -99,67 +99,71 @@
           </div>
         </div>
           <div class="col-12">
+            <div class="section-heading clearfix">
+              <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
+            </div>
             <!-- DETAILS -->
-            <div class="dashboard-section no-margin">
-              <div class="section-heading clearfix">
-                <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
-              </div>
-              <div class="panel-content">
-                <div class="row">
-                  <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i><span id ='top_issue'></span><span>TOP ISSUE</span></p>
+              <div class="row">
+                <div class="col-4">
+                  <div class="card" style="width: 22rem; text-center">
+                  <div class="card-header" style="font-weight: Bold">
+                    <center>ISSUE BY CANDIDATE</center>
                   </div>
-                  <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-upload"></i><span id ='boost'></span><span>MODEL BOOST</span></p>
+                  <table class="card-table table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Issue</th>
+                        <th scope="col">Leading Candidate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Climate Change</th>
+                        <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
+                      </tr>
+                      <tr>
+                        <th>Economy</th>
+                        <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
+                      </tr>
+                      <tr>
+                        <th>Heatlh Care</th>
+                        <th><img id ='issues_healthcare' class="rounded-circle" /></th>
+                      </tr>
+                      <tr>
+                        <th>Immigration</th>
+                        <th><img id ='issues_immigration' class="rounded-circle" /></th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>  
+              <div class="col-8" right>
+                <!-- <div class="panel-content"> -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                      <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i><span id ='top_issue'></span><span>TOP ISSUE</span></p>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <p class="metric-inline"><i class="lnr lnr-upload"></i><span id ='votes'></span><span>ELECTORAL VOTES</span></p>
+                    </div>
                   </div>
-                  <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-users"></i><span id ='win_margin'></span><span>MARGIN OF VICTORY</span></p>
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id ='win_margin'></span><span>MARGIN OF VICTORY</span></p>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id='party'></span><span> PREVIOUS WINNER</span></p>
+                    </div>
                   </div>
-                  <div class="col-md-3 col-sm-6">
-                    <p class="metric-inline"><i class="lnr lnr-users"></i><span id='party'></span><span>WON PREVIOUS ELECTION</span></p>
-                  </div>
+                  <!-- </div> -->
                 </div>
               </div>
             </div>
-            <!-- <div class="card text-center"> -->
-              <div class="card" style="width: 22rem; text-center">
-                <div class="card-header" style="font-weight: Bold">
-                  <center>ISSUE BY CANDIDATE</center>
-                </div>
-                <table class="card-table table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Issue</th>
-                      <th scope="col">Leading Candidate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>Climate Change</th>
-                      <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
-                    </tr>
-                    <tr>
-                      <th>Economy</th>
-                      <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
-                    </tr>
-                    <tr>
-                      <th>Heatlh Care</th>
-                      <th><img id ='issues_healthcare' class="rounded-circle" /></th>
-                    </tr>
-                    <tr>
-                      <th>Immigration</th>
-                      <th><img id ='issues_immigration' class="rounded-circle" /></th>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-           <!--  </div> -->
         <!-- END DETAILS -->
           </div>
         </div>
       </div>
     </main>
-    <!-- </div> -->
 
   </main><!-- /.container -->
 
@@ -209,7 +213,7 @@
         success: function (response) {
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
-          $('#boost').text(response['details_boost']).css("font-weight","Bold");
+          $('#votes').text(response['details_votes']).css("font-weight","Bold");
           $('#win_margin').text(response['details_win_margin']).css("font-weight","Bold");
           $('#party').text(response['details_party']).css("font-weight","Bold");
         }
