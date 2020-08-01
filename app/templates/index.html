@@ -69,16 +69,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-        </ul>
-      </div>
+      
     </div>
   </nav>
 
@@ -96,17 +87,6 @@
 		</div>
 
         <div class="row">
-          <!-- <div class="col-3">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-              <a class="nav-link" id="v-pills-summary-tab" data-toggle="pill" href="#v-pills-summary" role="tab" aria-controls="v-pills-summary" aria-selected="true">Sentiment Summary</a>
-              <a class="nav-link" id="v-pills-economy-tab" data-toggle="pill" href="#v-pills-economy" role="tab" aria-controls="v-pills-economy" aria-selected="false">Sentiment: Economy</a>
-              <a class="nav-link" id="v-pills-party-tab" data-toggle="pill" href="#v-pills-party" role="tab" aria-controls="v-pills-party" aria-selected="false">Sentiment: Party</a>
-              <a class="nav-link" id="v-pills-environment-tab" data-toggle="pill" href="#v-pills-environment" role="tab" aria-controls="v-pills-environment" aria-selected="false">Sentiments: Environment</a>
-              <a class="nav-link" id="v-pills-health-tab" data-toggle="pill" href="#v-pills-health" role="tab" aria-controls="v-pills-health" aria-selected="false">Sentiment: Health</a>
-              <a class="nav-link" id="v-pills-jobs-tab" data-toggle="pill" href="#v-pills-jobs" role="tab" aria-controls="v-pills-jobs" aria-selected="false">Sentiment: Jobs</a>
-            </div>
-          </div> -->
           <div class="col-6">
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -141,37 +121,39 @@
                 </div>
               </div>
             </div>
-            <div class="card" style="width: 22rem;">
-              <div class="card-header" style="font-weight: Bold; align-content: center">
-                ISSUE BY CANDIDATE
+            <!-- <div class="card text-center"> -->
+              <div class="card" style="width: 22rem; text-center">
+                <div class="card-header" style="font-weight: Bold">
+                  <center>ISSUE BY CANDIDATE</center>
+                </div>
+                <table class="card-table table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Issue</th>
+                      <th scope="col">Leading Candidate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Climate Change</th>
+                      <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Economy</th>
+                      <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Heatlh Care</th>
+                      <th><img id ='issues_healthcare' class="rounded-circle" /></th>
+                    </tr>
+                    <tr>
+                      <th>Immigration</th>
+                      <th><img id ='issues_immigration' class="rounded-circle" /></th>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <table class="card-table table">
-                <thead>
-                  <tr>
-                    <th scope="col">Issue</th>
-                    <th scope="col">Leading Candidate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>Climate Change</th>
-                    <th class="col-xs-1"><img id ='issues_climate' class="rounded-circle" /></th>
-                  </tr>
-                  <tr>
-                    <th>Economy</th>
-                    <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
-                  </tr>
-                  <tr>
-                    <th>Heatlh Care</td>
-                    <th><img id ='issues_healthcare' class="rounded-circle" /></th>
-                  </tr>
-                  <tr>
-                    <th>Immigration</th>
-                    <th><img id ='issues_immigration' class="rounded-circle" /></th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+           <!--  </div> -->
         <!-- END DETAILS -->
           </div>
         </div>
@@ -190,17 +172,6 @@
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"></script>
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"></script>
-  <!-- <script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../static/assets/vendor/metisMenu/metisMenu.js"></script>
-  <script src="../static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-  <script src="../static/assets/vendor/jquery-sparkline/js/jquery.sparkline.min.js"></script>
-  <script src="../static/assets/vendor/bootstrap-progressbar/js/bootstrap-progressbar.min.js"></script>
-  <script src="../static/assets/vendor/chartist/js/chartist.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-axistitle/chartist-plugin-axistitle.min.js"></script>
-  <script src="../static/assets/vendor/chartist-plugin-legend-latest/chartist-plugin-legend.js"></script>
-  <script src="../static/assets/vendor/toastr/toastr.js"></script>
-  <script src="../static/assets/scripts/common.js"></script> -->
   <script>
 
     var currentYearSelection = '2004';
