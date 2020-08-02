@@ -33,10 +33,12 @@ def make_dataset_cnt(st_data, yr, state_fips, shouldGetAll):
     # create 2000 election year data frame
     if shouldGetAll:
         merged_select = st_data
+        merged_select = merged_select.loc[~merged_select["STATE"].isin(["Alaska", "Hawaii"])]
     else:
         yr_selected = st_data["YEAR"] == yr
         merged_select = st_data[yr_selected]
-        merged_select = merged_select.loc[merged_select["STATE_FIPS"].isin([state_fips])]
+        if state_fips != -1:
+            merged_select = merged_select.loc[merged_select["STATE_FIPS"].isin([state_fips])]
 
     merged_json = json.loads(merged_select.to_json())
     json_data = json.dumps(merged_json)
@@ -114,7 +116,7 @@ def make_plot_cnt(geo_src):
 
 
     # create figure object
-    plot = figure(title = 'STATE MAP',
+    plot = figure(title = 'COUNTY MAP',
                plot_height = 525 ,
                plot_width = 800)
     plot.title.text_font_size = '20pt'
@@ -190,7 +192,7 @@ def get_electmap_with_controls():
                          step = 4, value = 2000,
                          title = 'Election Year')
 
-    st_fips = 4
+    st_fips = -1
 
     #start = time.time()
     geo_src_c = GeoJSONDataSource(geojson = make_dataset_cnt(merged_cnt_data, year_select.value, 0, True))
@@ -212,35 +214,58 @@ def get_electmap_with_controls():
             source_s=geo_src_s, currsource_s=curr_geo_src_s, source_c=geo_src_c, currsource_c=curr_geo_src_c),
             code="""
 
-    //var c_data = source_s.data;
-    var yr = cb_obj.value;
+            var yr = cb_obj.value;
 
-    for(var key in source_s.data){
-      currsource_s.data[key] = [];
-    }
+            var has_selected_st = currsource_s.selected.indices.length > 0;
+            var st_fip = currsource_c.data['STATE_FIPS'][0];
 
-    for (var i = 0; i <= source_s.data['YEAR'].length; i++){
-        if (source_s.data['YEAR'][i] == yr){
             for(var key in source_s.data){
-                currsource_s.data[key].push(source_s.data[key][i]);
+                currsource_s.data[key] = [];
             }
-        }
-    }
 
-    var st_fip = currsource_c.data['STATE_FIPS'][0];
-
-    for (var i = 0; i <= source_c.data['YEAR'].length; i++){
-        if (source_c.data['YEAR'][i] == yr && source_c.data['STATE_FIPS'][i] == st_fip){
             for(var key in source_c.data){
-                currsource_c.data[key].push(source_c.data[key][i]);
+                currsource_c.data[key] = [];
             }
-        }
-    }
 
-    updateDetails(null, yr);
+            for (var i = 0; i <= source_s.data['YEAR'].length; i++){
+                if (source_s.data['YEAR'][i] == yr){
+                    for(var key in source_s.data){
+                        currsource_s.data[key].push(source_s.data[key][i]);
+                    }
+                }
+            }
 
-    currsource_s.change.emit();
-    currsource_c.change.emit();
+            for (var i = 0; i <= source_c.data['YEAR'].length; i++){
+                if (source_c.data['YEAR'][i] == yr){
+                    if(has_selected_st){
+                        if(source_c.data['STATE_FIPS'][i] == st_fip){
+                            for(var key in source_c.data){
+                                currsource_c.data[key].push(source_c.data[key][i]);
+                            }
+                        }
+                    }
+                    else{
+                        for(var key in source_c.data){
+                            if(source_c.data['STATE_FIPS'][i] == 2 || source_c.data['STATE_FIPS'][i] == 15){
+                                continue;
+                            }
+
+                            if(source_c.data[key][i]){
+                                currsource_c.data[key].push(source_c.data[key][i]);
+                            }
+                            else
+                            {
+                                currsource_c.data[key].push('');
+                            }
+                        }
+                    }
+                }
+            }
+
+            updateDetails(null, yr);
+
+            currsource_s.change.emit();
+            currsource_c.change.emit();
     """)
 
     year_select.js_on_change('value', callbackSelector)
@@ -257,36 +282,74 @@ def get_electmap_with_controls():
             source=curr_geo_src_s, source_c=geo_src_c, source_curr_c=curr_geo_src_c),
             code="""
 
-    var st_fip = 0;
+            var st_fip = 0;
 
-    for(var key in source.data){
-        if (key == 'STATE_FIPS')
-        {
-            st_fip = source.data['STATE_FIPS'][source.selected.indices[0]];
-        }
-    }
-
-    for(var key in source_c.data){
-      source_curr_c.data[key] = [];
-    }
-
-    for (var i = 0; i <= source_c.data['YEAR'].length; i++){
-        if (source_c.data['STATE_FIPS'][i] == st_fip){
-            for(var key in source_c.data){
-                source_curr_c.data[key].push(source_c.data[key][i]);
+            for(var key in source.data){
+                if (key == 'STATE_FIPS')
+                {
+                    st_fip = source.data['STATE_FIPS'][source.selected.indices[0]];
+                }
             }
-        }
-    }
 
-    updateDetails(st_fip, null);
+            for(var key in source_c.data){
+                source_curr_c.data[key] = [];
+            }
 
-    source_curr_c.change.emit();
+            for (var i = 0; i <= source_c.data['YEAR'].length; i++){
+                if (source_c.data['STATE_FIPS'][i] == st_fip){
+                    for(var key in source_c.data){
+                        source_curr_c.data[key].push(source_c.data[key][i]);
+                    }
+                }
+            }
+
+            updateDetails(st_fip, null);
+
+            source_curr_c.change.emit();
 
     """)
 
     taptool = TapTool(callback=callbackStateClick)
 
     p_s.add_tools(taptool)
+
+    callback1 = CustomJS(
+        args=dict(
+            source=curr_geo_src_s, source_c=geo_src_c, source_curr_c=curr_geo_src_c), 
+            code="""
+
+            if(source.selected.indices.length == 0){
+
+                var yr = source_curr_c.data['YEAR'][0];
+
+                for(var key in source_c.data){
+                    source_curr_c.data[key] = [];
+                }
+
+                for (var i = 0; i <= source_c.data['YEAR'].length; i++){
+                    if (source_c.data['YEAR'][i] == yr){
+                        for(var key in source_c.data){
+                            if(source_c.data['STATE_FIPS'][i] == 2 || source_c.data['STATE_FIPS'][i] == 15){
+                                continue;
+                            }
+
+                            if(source_c.data[key][i])
+                                source_curr_c.data[key].push(source_c.data[key][i]);
+                            else
+                            {
+                                source_curr_c.data[key].push('');
+                            }
+                        }
+                    }
+                }
+
+                updateDetails(null, null);
+
+                source_curr_c.change.emit();
+            }
+            """
+            )
+    p_s.js_on_event('tap', callback1)
 
 
     #p_s.js_on_event('value', callbackStateClick)
