@@ -288,6 +288,8 @@ def get_electmap_with_controls():
 
             var st_fip = 0;
 
+            var yr = source_curr_c.data['YEAR'][0];
+
             for(var key in source.data){
                 if (key == 'STATE_FIPS')
                 {
@@ -300,7 +302,7 @@ def get_electmap_with_controls():
             }
 
             for (var i = 0; i <= source_c.data['YEAR'].length; i++){
-                if (source_c.data['STATE_FIPS'][i] == st_fip){
+                if (source_c.data['STATE_FIPS'][i] == st_fip && source_c.data['YEAR'][i] == yr){
                     for(var key in source_c.data){
                         source_curr_c.data[key].push(source_c.data[key][i]);
                     }
@@ -317,7 +319,7 @@ def get_electmap_with_controls():
 
     p_s.add_tools(taptool)
 
-    callback1 = CustomJS(
+    tabOutsideCallback = CustomJS(
         args=dict(
             source=curr_geo_src_s, source_c=geo_src_c, source_curr_c=curr_geo_src_c),
             code="""
@@ -353,7 +355,7 @@ def get_electmap_with_controls():
             }
             """
             )
-    p_s.js_on_event('tap', callback1)
+    p_s.js_on_event('tap', tabOutsideCallback)
 
 
     #p_s.js_on_event('value', callbackStateClick)
