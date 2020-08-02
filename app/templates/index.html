@@ -226,9 +226,6 @@
           currentFipsSelection = stateFips;
         }
 
-        //console.log('state fip', currentFipsSelection)
-        //console.log('year', currentYearSelection)
-
         var detailsUrlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
 
         var issuesUrlPath = '/issues/' + currentFipsSelection + '?year=' + currentYearSelection
@@ -241,7 +238,7 @@
         url: detailsUrlPath,
         success: function (response) {
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
-          $('#top_issuex').text(response['details_top_issue']).css("font-weight","Bold");
+          $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#votes').text(response['details_votes']).css("font-weight","Bold");
           $('#win_margin').text(response['details_win_margin']).css("font-weight","Bold");
           $('#party').text(response['details_party']).css("font-weight","Bold");
@@ -274,8 +271,6 @@
           var rep_votes = response['REP_VOTES']
           var dem_candidate = response['DEM_CANDIDATE']
           var rep_candidate = response['REP_CANDIDATE']
-          console.log('dem_votes=' + dem_votes)
-          console.log('rep_votes=' + rep_votes)
 
           $('#d_candidate').prop("src", pic_dict[dem_candidate]);
           $('#r_candidate').prop("src", pic_dict[rep_candidate]);
