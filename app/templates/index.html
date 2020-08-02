@@ -75,8 +75,14 @@
   </nav>
 
   <main class="container-xl">
-
-    <center><h1>US Presidential Elections Forecast</h1></center>
+	<div class="col-12">
+		<div class="row">
+			<center>
+				<p style="float: left;"><img id ='providentia' src="{{url_for('static', filename='pics/providentia-2.png')}}"/></p>
+				<p><h1 style="font-size:40px;">US Presidential Elections Forecast</h1></p>
+			</center>
+		</div>
+	</div>
 
     <p></p>
 		
@@ -103,7 +109,7 @@
       </div>
     </div>
     
-
+	<div class="col-12">
       <div class="row">
         <div class="col-6">
           <div class="tab-content" id="v-pills-tabContent">
@@ -115,7 +121,7 @@
            </div>
         </div>
         </div>
-          <div class="col-12">
+        <div class="col-12">
             <div class="section-heading clearfix">
               <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
             </div>
@@ -143,7 +149,7 @@
                         <th class="col-xs-1"><img id ='issues_economy' class="rounded-circle" /></th>
                       </tr>
                       <tr>
-                        <th>Heatlh Care</th>
+                        <th>Health Care</th>
                         <th><img id ='issues_healthcare' class="rounded-circle" /></th>
                       </tr>
                       <tr>
@@ -179,7 +185,8 @@
         <!-- END DETAILS -->
           </div>
         </div>
-      </div>
+	
+     
     </main>
 
   </main><!-- /.container -->
