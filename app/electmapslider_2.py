@@ -7,9 +7,10 @@ from bokeh.models import (CDSView, ColorBar, ColumnDataSource,
                           CustomJS, CustomJSFilter,
                           GeoJSONDataSource, HoverTool, TapTool,
                           LinearColorMapper, Slider)
-from bokeh.layouts import column, row, WidgetBox
+from bokeh.layouts import column, row, WidgetBox, Spacer
 from bokeh.palettes import brewer
 from bokeh.plotting import figure
+from bokeh.models import LabelSet
 from bokeh.models.widgets import RadioButtonGroup, Slider, RangeSlider, Tabs
 import time
 
@@ -83,6 +84,9 @@ def make_plot_st(geo_src):
                        line_color = "gray",
                        line_width = 0.25,
                        fill_alpha = 1)
+
+    #labels = LabelSet("xs", "ys", text="STUSPS", text_font_size="11px", text_color="#555555", source=geo_src, text_align='center')
+    #plot.add_layout(labels)
     # create hover tool
     plot.add_tools(HoverTool(renderers = [states],
                       tooltips = [("State","@STATE"),
@@ -190,7 +194,7 @@ def get_electmap_with_controls():
 
     year_select = Slider(start = 2000, end = 2020,
                          step = 4, value = 2000,
-                         title = 'Election Year')
+                         title = 'ELECTION YEAR')
 
     st_fips = -1
 
@@ -315,7 +319,7 @@ def get_electmap_with_controls():
 
     callback1 = CustomJS(
         args=dict(
-            source=curr_geo_src_s, source_c=geo_src_c, source_curr_c=curr_geo_src_c), 
+            source=curr_geo_src_s, source_c=geo_src_c, source_curr_c=curr_geo_src_c),
             code="""
 
             if(source.selected.indices.length == 0){
@@ -354,8 +358,8 @@ def get_electmap_with_controls():
 
     #p_s.js_on_event('value', callbackStateClick)
 
-    controls = WidgetBox(year_select)
-    p_s = column(p_s,controls)
+    controls = WidgetBox(year_select, width=int(950*0.9))
+    p_s = column([p_s, controls], sizing_mode='scale_width')
     layout = row(p_s, p_c)
     #end = time.time()
     #print("plot time={}", str(end-start))
