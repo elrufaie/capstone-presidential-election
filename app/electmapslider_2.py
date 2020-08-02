@@ -121,8 +121,8 @@ def make_plot_cnt(geo_src):
 
     # create figure object
     plot = figure(title = 'COUNTY MAP',
-               plot_height = 525 ,
-               plot_width = 800)
+               plot_height = 475 ,
+               plot_width = 633)
     plot.title.text_font_size = '20pt'
 
     plot.xgrid.grid_line_color = None
