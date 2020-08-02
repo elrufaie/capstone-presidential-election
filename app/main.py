@@ -9,6 +9,7 @@ import twtanalysis as twt
 import electmapslider_2 as mslider
 import stateaggregates as aggs
 import issues as issues
+import electoralvotes as votes
 
 # starting Flask app
 from flask import Flask, render_template, jsonify, request
@@ -80,6 +81,15 @@ def issues_by_candidate(state_fips):
     issues_by_candidate = issues.get_issues_by_candidates(int(state_fips), int(year))
 
     return jsonify(issues_by_candidate)
+
+@app.route('/electoral')
+def electoral_by_year():
+    year = request.args.get('year')
+    electoral_votes = votes.get_electoral_votes(int(year))
+
+    print(str(electoral_votes))
+
+    return jsonify(electoral_votes)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
