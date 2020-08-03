@@ -7,7 +7,7 @@ from bokeh.models import (CDSView, ColorBar, ColumnDataSource,
                           CustomJS, CustomJSFilter,
                           GeoJSONDataSource, HoverTool, TapTool,
                           LinearColorMapper, Slider)
-from bokeh.layouts import column, row, WidgetBox, Spacer
+from bokeh.layouts import column, row, WidgetBox, Spacer, gridplot
 from bokeh.palettes import brewer
 from bokeh.plotting import figure
 from bokeh.models import LabelSet
@@ -108,17 +108,6 @@ def make_plot_cnt(geo_src):
     color_mapper = LinearColorMapper(palette = mycolors, low = -0.5,
                                      high = 0.5)
 
-    # create color slider bar at the bottom of chart
-    color_bar = ColorBar(color_mapper = color_mapper,
-                         label_standoff = 8,
-                         width = 500, height = 20,
-                         border_line_color = None,
-                         location = (0,0),
-                         orientation = "horizontal")
-
-    #taptool = TapTool()
-
-
     # create figure object
     plot = figure(title = 'COUNTY MAP',
                plot_height = 475 ,
@@ -194,7 +183,7 @@ def get_electmap_with_controls():
 
     year_select = Slider(start = 2000, end = 2020,
                          step = 4, value = 2000,
-                         title = 'ELECTION YEAR')
+                         title = 'ELECTION YEAR', bar_color="black")
 
     st_fips = -1
 
@@ -361,10 +350,6 @@ def get_electmap_with_controls():
     #p_s.js_on_event('value', callbackStateClick)
 
     controls = WidgetBox(year_select, width=int(950*0.9))
-    p_s = column([p_s, controls], sizing_mode='scale_width')
-    layout = row(p_s, p_c)
-    #end = time.time()
-    #print("plot time={}", str(end-start))
-
+    layout = gridplot([[controls], [p_s, p_c]])
 
     return layout
