@@ -57,7 +57,6 @@
     
   </style>
 
-
   <!-- Custom styles for this template -->
   <link href="../static/css/starter-template.css" rel="stylesheet">
 </head>
@@ -69,8 +68,6 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      
     </div>
   </nav>
 
@@ -89,22 +86,21 @@
     <div class="col-12">
       <div class="row">
         <div class="col-1">
-          <img id ='r_candidate' src="{{url_for('static', filename='pics/DT.jpeg')}}" class="rounded-circle" />
+          <img id ='d_candidate' class="rounded-circle" />
         </div>
         <div class="col-10">
 			<div>
-				<span class="progress-label" style="font-size:25px">300</span>
-				<span class="pull-right" style="font-size:25px">238</span>
-				<div class = "progress" style="height:40px; border-radius: 0; background-color: #0015bc;">
-					<div class="progress-bar" role="progressbar" aria-valuenow="60"
-						aria-valuemin="0" aria-valuemax="538" style="height:40px;width:60%;background-color: #e9141d">
-						<span class = "sr-only">60% Complete</span>
+        <span id="d_votes" class="progress-label" style="font-size:25px"></span>
+				<span id="r_votes" class="pull-right" style="font-size:25px"></span>
+				<div id="main-progress-bar" class="progress" style="visibility: hidden;">
+					<div id="progress-bar-perc" class="progress-bar" role="progressbar" aria-valuenow="80"
+						aria-valuemin="0" aria-valuemax="538">
 					</div>
 				</div>
 			</div>
         </div>
         <div class="col-1">
-          <img id ='d_candidate' src="{{url_for('static', filename='pics/JB.jpeg')}}" class="rounded-circle" />
+          <img id ='r_candidate' class="rounded-circle" />
         </div>
       </div>
     </div>
@@ -121,13 +117,13 @@
            </div>
         </div>
         </div>
-        <div class="col-12">
+        <div id="details-section" class="col-12" style="visibility: hidden;">
             <div class="section-heading clearfix">
               <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
             </div>
             <!-- DETAILS -->
               <div class="row">
-                <div class="col-4">
+                <div id="issues-section" class="col-4" style="visibility: hidden;">
                   <div class="card" style="width: 22rem; text-center">
                   <div class="card-header" style="font-weight: Bold">
                     <center>ISSUE BY CANDIDATE</center>
@@ -208,12 +204,16 @@
     //not the smartest thing.. but works!
     var pic_dict = {
           'BO': '{{url_for('static', filename="pics/BO.jpeg")}}',
+          'JB': '{{url_for('static', filename="pics/JB.jpeg")}}',
+          'JK': '{{url_for('static', filename="pics/JK.jpeg")}}',
           "HC": '{{url_for('static', filename="pics/HC.jpeg")}}',
           "DT": '{{url_for('static', filename="pics/DT.jpeg")}}',
           "MR": '{{url_for('static', filename="pics/MR.jpeg")}}',
+          "GB": '{{url_for('static', filename="pics/GB.jpeg")}}',
+          "JM": '{{url_for('static', filename="pics/JM.jpeg")}}',
+          "AG": '{{url_for('static', filename="pics/AG.jpeg")}}'
         };
 
-    //$('#test_button').click(function () {
       function updateDetails(stateFips, year){
 
         if (year != null){
@@ -224,17 +224,19 @@
           currentFipsSelection = stateFips;
         }
 
-        //console.log('state fip', currentFipsSelection)
-        //console.log('year', currentYearSelection)
-
         var detailsUrlPath = '/details/' + currentFipsSelection + '?year=' + currentYearSelection
 
         var issuesUrlPath = '/issues/' + currentFipsSelection + '?year=' + currentYearSelection
 
+        var electoralUrlPath = '/electoral?year=' + currentYearSelection
+
+      //Details
       $.ajax({
         type: 'GET',
         url: detailsUrlPath,
         success: function (response) {
+          $('#details-section').css("visibility","visible");
+
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#votes').text(response['details_votes']).css("font-weight","Bold");
@@ -243,10 +245,13 @@
         }
       });
 
+      //Issues
       $.ajax({
         type: 'GET',
         url: issuesUrlPath,
         success: function (response) {
+          $('#issues-section').css("visibility","visible");
+
           var immigration_lead = response['Immigration']
           var healthcare_lead = response['Health Care']
           var economy_lead = response['Economy']
@@ -256,10 +261,32 @@
           $('#issues_healthcare').prop("src", pic_dict[healthcare_lead]);
           $('#issues_economy').prop("src", pic_dict[economy_lead]);
           $('#issues_climate').prop("src", pic_dict[climate_lead]);
+        },
+        error: function (jqXHR, status, err) {
+          $('#issues-section').css("visibility","hidden");
+        }
+      });
+
+      //Electoral Votes
+      $.ajax({
+        type: 'GET',
+        url: electoralUrlPath,
+        success: function (response) {
+          var dem_votes = response['DEM_VOTES']
+          var rep_votes = response['REP_VOTES']
+          var dem_candidate = response['DEM_CANDIDATE']
+          var rep_candidate = response['REP_CANDIDATE']
+          var perc = (dem_votes / 538) * 100 + '%'
+
+          $('#d_candidate').prop("src", pic_dict[dem_candidate]);
+          $('#r_candidate').prop("src", pic_dict[rep_candidate]);
+          $('#r_votes').text(rep_votes).css("font-weight","Bold");
+          $('#d_votes').text(dem_votes).css("font-weight","Bold");
+          $('#main-progress-bar').css({"visibility":"visible", "height":"40px", "border-radius": "0", "background-color": "#e9141d " });
+          $('#progress-bar-perc').css({"width":perc,"height":"40x","background-color":"#0015bc"});
         }
       });
     }
-    //});
   </script>
 
 </body>
