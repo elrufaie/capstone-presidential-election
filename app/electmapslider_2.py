@@ -6,7 +6,7 @@ from bokeh.io import show, curdoc
 from bokeh.models import (CDSView, ColorBar, ColumnDataSource,
                           CustomJS, CustomJSFilter,
                           GeoJSONDataSource, HoverTool, TapTool,
-                          LinearColorMapper, Slider)
+                          LinearColorMapper, Slider, LabelSet)
 from bokeh.layouts import column, row, WidgetBox, Spacer, gridplot
 from bokeh.palettes import brewer
 from bokeh.plotting import figure
@@ -91,8 +91,9 @@ def make_plot_st(geo_src):
     plot.add_tools(HoverTool(renderers = [states],
                       tooltips = [("State","@STATE"),
                                ("Rep Votes", "@TOTAL_REP_VOTES"), ("Dem Votes","@TOTAL_DEM_VOTES")]))
-
+    labels = LabelSet(x='geomx',y='geomy',text="STUSPS",source=geo_src)
     plot.add_layout(color_bar, "below")
+    plot.add_layout(labels)
 
     return plot
 
@@ -165,6 +166,8 @@ def get_state_data():
     states_usa = gpd.read_file("bokeh/cb_2018_us_state_20m.shp")
     states_usa = states_usa.loc[~states_usa["NAME"].isin(["Alaska", "Hawaii"])]
     states_usa["STATEFP"] = states_usa["STATEFP"].astype("int64")
+    states_usa['geomx'] = states_usa['geometry'].centroid.x
+    states_usa['geomy'] = states_usa['geometry'].centroid.y
     merged_states = states_usa.merge(state_df, left_on="STATEFP", right_on="STATE_FIPS")
     return merged_states
 
