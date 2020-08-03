@@ -111,8 +111,8 @@ def make_plot_cnt(geo_src):
 
     # create figure object
     plot = figure(title = 'COUNTY MAP',
-               plot_height = 475 ,
-               plot_width = 633)
+               plot_height = 300,
+               plot_width = 475)
     plot.title.text_font_size = '20pt'
 
     plot.xgrid.grid_line_color = None
@@ -353,6 +353,6 @@ def get_electmap_with_controls():
     #p_s.js_on_event('value', callbackStateClick)
 
     controls = WidgetBox(year_select, width=int(950*0.9))
-    layout = gridplot([[controls], [p_s, p_c]])
+    layout = column(controls, p_s, p_c)
 
     return layout
