@@ -57,7 +57,6 @@
     
   </style>
 
-
   <!-- Custom styles for this template -->
   <link href="../static/css/starter-template.css" rel="stylesheet">
 </head>
@@ -93,7 +92,7 @@
 			<div>
 				<span id="r_votes" class="progress-label" style="font-size:25px"></span>
 				<span id="d_votes" class="pull-right" style="font-size:25px"></span>
-				<div class = "progress" style="height:40px; border-radius: 0; background-color: #0015bc;">
+				<div id="main-progress-bar" class="progress" style="visibility: hidden;">
 					<div id="progress-bar-perc" class="progress-bar" role="progressbar" aria-valuenow="80"
 						aria-valuemin="0" aria-valuemax="538">
 						<span class = "sr-only">60% Complete</span>
@@ -277,6 +276,7 @@
           $('#r_candidate').prop("src", pic_dict[rep_candidate]);
           $('#r_votes').text(rep_votes).css("font-weight","Bold");
           $('#d_votes').text(dem_votes).css("font-weight","Bold");
+          $('#main-progress-bar').css({"visibility":"visible", "height":"40px", "border-radius": "0", "background-color": "#0015bc" });
           $('#progress-bar-perc').css({"width":perc,"height":"40x","background-color":"#e9141d"});
         }
       });
