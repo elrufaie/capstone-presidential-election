@@ -86,22 +86,21 @@
     <div class="col-12">
       <div class="row">
         <div class="col-1">
-          <img id ='r_candidate' class="rounded-circle" />
+          <img id ='d_candidate' class="rounded-circle" />
         </div>
         <div class="col-10">
 			<div>
-				<span id="r_votes" class="progress-label" style="font-size:25px"></span>
-				<span id="d_votes" class="pull-right" style="font-size:25px"></span>
+        <span id="d_votes" class="progress-label" style="font-size:25px"></span>
+				<span id="r_votes" class="pull-right" style="font-size:25px"></span>
 				<div id="main-progress-bar" class="progress" style="visibility: hidden;">
 					<div id="progress-bar-perc" class="progress-bar" role="progressbar" aria-valuenow="80"
 						aria-valuemin="0" aria-valuemax="538">
-						<span class = "sr-only">60% Complete</span>
 					</div>
 				</div>
 			</div>
         </div>
         <div class="col-1">
-          <img id ='d_candidate' class="rounded-circle" />
+          <img id ='r_candidate' class="rounded-circle" />
         </div>
       </div>
     </div>
@@ -277,14 +276,14 @@
           var rep_votes = response['REP_VOTES']
           var dem_candidate = response['DEM_CANDIDATE']
           var rep_candidate = response['REP_CANDIDATE']
-          var perc = (rep_votes / 538) * 100 + '%'
+          var perc = (dem_votes / 538) * 100 + '%'
 
           $('#d_candidate').prop("src", pic_dict[dem_candidate]);
           $('#r_candidate').prop("src", pic_dict[rep_candidate]);
           $('#r_votes').text(rep_votes).css("font-weight","Bold");
           $('#d_votes').text(dem_votes).css("font-weight","Bold");
-          $('#main-progress-bar').css({"visibility":"visible", "height":"40px", "border-radius": "0", "background-color": "#0015bc" });
-          $('#progress-bar-perc').css({"width":perc,"height":"40x","background-color":"#e9141d"});
+          $('#main-progress-bar').css({"visibility":"visible", "height":"40px", "border-radius": "0", "background-color": "#e9141d " });
+          $('#progress-bar-perc').css({"width":perc,"height":"40x","background-color":"#0015bc"});
         }
       });
     }
