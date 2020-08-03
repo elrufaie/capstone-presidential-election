@@ -118,13 +118,13 @@
            </div>
         </div>
         </div>
-        <div class="col-12">
+        <div id="details-section" class="col-12" style="visibility: hidden;">
             <div class="section-heading clearfix">
               <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
             </div>
             <!-- DETAILS -->
               <div class="row">
-                <div class="col-4">
+                <div id="issues-section" class="col-4" style="visibility: hidden;">
                   <div class="card" style="width: 22rem; text-center">
                   <div class="card-header" style="font-weight: Bold">
                     <center>ISSUE BY CANDIDATE</center>
@@ -236,6 +236,8 @@
         type: 'GET',
         url: detailsUrlPath,
         success: function (response) {
+          $('#details-section').css("visibility","visible");
+
           $('#state').text(response['details_state_text']).css("font-weight","Bold");
           $('#top_issue').text(response['details_top_issue']).css("font-weight","Bold");
           $('#votes').text(response['details_votes']).css("font-weight","Bold");
@@ -249,6 +251,8 @@
         type: 'GET',
         url: issuesUrlPath,
         success: function (response) {
+          $('#issues-section').css("visibility","visible");
+
           var immigration_lead = response['Immigration']
           var healthcare_lead = response['Health Care']
           var economy_lead = response['Economy']
@@ -258,6 +262,9 @@
           $('#issues_healthcare').prop("src", pic_dict[healthcare_lead]);
           $('#issues_economy').prop("src", pic_dict[economy_lead]);
           $('#issues_climate').prop("src", pic_dict[climate_lead]);
+        },
+        error: function (jqXHR, status, err) {
+          $('#issues-section').css("visibility","hidden");
         }
       });
 
