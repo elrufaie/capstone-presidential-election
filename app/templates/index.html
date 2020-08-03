@@ -76,18 +76,18 @@
     </div>
   </nav>
 
-  <main class="container-xl">
-	<div class="col-12">
-		<div class="row">
-			<center>
-				<p style="float: left;"><img id ='providentia' src="{{url_for('static', filename='pics/providentia-2.png')}}"/></p>
-				<p><h1 style="font-size:40px;">US Presidential Elections Forecast</h1></p>
-			</center>
-		</div>
-	</div>
-
+  <main class="container-xl" style="max-width: 1400px;">
+    <div class="col-12">
+      <div class="row">
+          <div class="col-3">
+          <p style="float: left;"><img id ='providentia' src="{{url_for('static', filename='pics/providentia-2.png')}}"/></p>
+        </div>
+        <div class="col-9">
+          <p><h1 style="font-size:40px">US Presidential Elections Forecast</h1></p>
+        </div>
+      </div>
+    </div>
     <p></p>
-		
     <div class="col-12">
       <div class="row">
         <div class="col-1">
@@ -110,23 +110,49 @@
       </div>
     </div>
     
-	<div class="col-12">
-      <div class="row">
-        <div class="col-6">
-          <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+    <div class="col-12">
+        <div class="row">
+          <div class="col-8">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
-             {{ map_div|safe }}
-             {{ map_script|safe }}
+              {{ map_div|safe }}
+              {{ map_script|safe }}
 
-           </div>
+            </div>
         </div>
         </div>
-        <div id="details-section" class="col-12" style="visibility: hidden;">
+        <div id="details-section" class="col-4" style="visibility: hidden;">
             <div class="section-heading clearfix">
               <h2 class="section-title"><i class="fa fa-user-circle"></i> State Details: <span id ='state'></span> </h2>
             </div>
             <!-- DETAILS -->
+             
+               <div class="row">
+              <div  right>
+                <!-- <div class="panel-content"> -->
+                  <div class="row">
+                    
+                    <div class="col-6">
+                      
+                      <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i><span id ='top_issue'></span><span>TOP ISSUE</span></p>
+                    </div>
+                    <div class="col-6">
+                    
+                      <p class="metric-inline"><i class="lnr lnr-upload"></i><span id ='votes'></span><span>ELECTORAL VOTES</span></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id ='win_margin'></span><span>MARGIN OF VICTORY</span></p>
+                    </div>
+                    <div class="col-6">
+                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id='party'></span><span> PREVIOUS WINNER</span></p>
+                    </div>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
               <div class="row">
                 <div id="issues-section" class="col-4" style="visibility: hidden;">
                   <div class="card" style="width: 22rem; text-center">
@@ -160,32 +186,12 @@
                     </tbody>
                   </table>
                 </div>
-              </div>  
-              <div class="col-8" right>
-                <!-- <div class="panel-content"> -->
-                  <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                      <p class="metric-inline"><i class="fa fa-thumbs-o-up"></i><span id ='top_issue'></span><span>TOP ISSUE</span></p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                      <p class="metric-inline"><i class="lnr lnr-upload"></i><span id ='votes'></span><span>ELECTORAL VOTES</span></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id ='win_margin'></span><span>MARGIN OF VICTORY</span></p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                      <p class="metric-inline"><i class="lnr lnr-users"></i><span id='party'></span><span> PREVIOUS WINNER</span></p>
-                    </div>
-                  </div>
-                  <!-- </div> -->
-                </div>
+               </div>  
               </div>
             </div>
         <!-- END DETAILS -->
           </div>
-        </div>
+    </div>
 	
      
     </main>
@@ -203,7 +209,7 @@
   <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"></script>
   <script>
 
-    var currentYearSelection = '2004';
+    var currentYearSelection = '2012';
     var currentFipsSelection = '4';
 
     //not the smartest thing.. but works!
