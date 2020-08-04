@@ -1,4 +1,4 @@
-,year,state_fips,state,economy,environment,health,immigration
+,year,state_fips,state,Economy,Climate,Health Care,Immigration
 0,2020,-1,US,JB,JB,JB,JB
 1,2020,1,US-AL,DT,DT,DT,DT
 2,2020,2,US-AK,JB,JB,JB,JB

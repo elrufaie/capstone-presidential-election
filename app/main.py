@@ -10,12 +10,14 @@ import electmapslider_2 as mslider
 import stateaggregates as aggs
 import issues as issues
 import electoralvotes as votes
+from flask_gzip import Gzip
 
 # starting Flask app
 from flask import Flask, render_template, jsonify, request
 import time, random
 
 app = Flask(__name__)
+gzip = Gzip(app)
 map_plot = mslider.get_electmap_with_controls()
 aggs.init()
 
