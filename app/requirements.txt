@@ -11,3 +11,4 @@ lxml
 pandas
 geopandas
 jinja2
+flask_gzip
