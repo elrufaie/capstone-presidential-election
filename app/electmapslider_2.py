@@ -143,7 +143,7 @@ def make_plot_cnt(geo_src):
 def get_county_data():
 
     pd.set_option("display.max_columns", None)
-    combined_df = pd.read_csv("data/elections/Input_Output_Aug02.csv", encoding = "ISO-8859-1")
+    combined_df = pd.read_csv("data/elections/Input_Output_Aug03_reduced.csv", encoding = "ISO-8859-1")
     combined_df['FIPS']=combined_df['STATE_FIPS']*1000 + combined_df['COUNTY_FIPS']
     counties_usa = gpd.read_file("bokeh/cb_2018_us_county_20m.shp")
     counties_usa["GEOID"] = counties_usa["GEOID"].astype("float64")
