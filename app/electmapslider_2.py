@@ -1,6 +1,7 @@
 # imports
 import geopandas as gpd
 import pandas as pd
+from pandas.io.json import json_normalize
 import json
 from bokeh.io import show, curdoc
 from bokeh.models import (CDSView, ColorBar, ColumnDataSource,
@@ -85,13 +86,15 @@ def make_plot_st(geo_src):
                        line_width = 0.25,
                        fill_alpha = 1)
 
-    #labels = LabelSet("xs", "ys", text="STUSPS", text_font_size="11px", text_color="#555555", source=geo_src, text_align='center')
-    #plot.add_layout(labels)
+
     # create hover tool
     plot.add_tools(HoverTool(renderers = [states],
                       tooltips = [("State","@STATE"),
                                ("Rep Votes", "@TOTAL_REP_VOTES"), ("Dem Votes","@TOTAL_DEM_VOTES")]))
-    labels = LabelSet(x='geomx',y='geomy',text="STUSPS",source=geo_src)
+    #df = json_normalize(geo_src)
+    #df = df.loc[~df["STUSPS"].isin(["MD", "RI"])]
+    YOUR_FONT_SIZE = '8pt'
+    labels = LabelSet(x='geomx',y='geomy',text="STUSPS",text_font_size=YOUR_FONT_SIZE, source=geo_src)
     plot.add_layout(color_bar, "below")
     plot.add_layout(labels)
 
@@ -101,9 +104,6 @@ def make_plot_st(geo_src):
 def make_plot_cnt(geo_src):
      # define color palettes
     mycolors = ['#0015bc','#1a34ff','#6678ff','#b3bbff','#f9b9bc','#f58a8f','#f15b62','#e9141d']
-
-    # use reverse order so higher values are darker
-    #palette = palette[::-1]
 
     # instantiate LineraColorMapper and manually set low/high end for colorbar
     color_mapper = LinearColorMapper(palette = mycolors, low = -0.5,
@@ -138,11 +138,6 @@ def make_plot_cnt(geo_src):
                                     ('Dem Votes','@DEM_VOTES'),
                                      ('Rep Votes','@REP_VOTES')]))
 
-    #plot.add_tools(taptool)
-
-
-    #plot.js_on_event(Tap, callbackStateClick)
-
     return plot
 
 def get_county_data():
@@ -166,6 +161,8 @@ def get_state_data():
     states_usa["STATEFP"] = states_usa["STATEFP"].astype("int64")
     states_usa['geomx'] = states_usa['geometry'].centroid.x
     states_usa['geomy'] = states_usa['geometry'].centroid.y
+    states_usa['STUSPS'] = states_usa['STUSPS'].replace(['MD'],'')
+    states_usa['STUSPS'] = states_usa['STUSPS'].replace(['RI'],'')
     merged_states = states_usa.merge(state_df, left_on="STATEFP", right_on="STATE_FIPS")
     return merged_states
 
