@@ -1,6 +1,6 @@
 #python
 #python-devel
-Flask==1.0.2
+Flask==2.3.2
 Bokeh==2.1.1
 Numpy
 requests
